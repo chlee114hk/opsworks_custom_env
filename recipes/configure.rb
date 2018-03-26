@@ -1,4 +1,3 @@
-require 'yaml'
 node[:deploy].each do |app, deploy|
   directory "var/www/#{app}/config" do
     owner "ubuntu"
@@ -8,6 +7,6 @@ node[:deploy].each do |app, deploy|
     action :create
   end
   file File.join('var', 'www', "#{app}", 'config', 'app_data.yml') do
-    content YAML.dump({ :production => deploy[:custom_env] }.to_yaml)
+    content YAML.dump({ :production => deploy[:custom_env] }.to_hash)
   end
 end
