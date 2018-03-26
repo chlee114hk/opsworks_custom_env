@@ -7,6 +7,6 @@ node[:deploy].each do |app, deploy|
     action :create
   end
   file File.join('var', 'www', "#{app}", 'config', 'app_data.yml') do
-    content YAML.dump({ :production => deploy[:custom_env] }.to_hash)
+    content YAML.dump({ 'production': deploy[:custom_env] }.to_hash)
   end
 end
