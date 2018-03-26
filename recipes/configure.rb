@@ -1,7 +1,7 @@
-puts node
-if node[:opsworks][:instance][:layers].include?('rails-app')
-
-  include_recipe "opsworks_custom_env::restart_command"
-  include_recipe "opsworks_custom_env::write_config"
-
+node[:deploy].each do |app, deploy|
+  puts "App: #{app}"
+  puts "Deploy: #{deploy}"
+  file File.join(deploy[:deploy_to], 'shared', 'config', 'app_data.yml') do
+    content YAML.dump(node[:my_app_data][app].to_hash)
+  end
 end
